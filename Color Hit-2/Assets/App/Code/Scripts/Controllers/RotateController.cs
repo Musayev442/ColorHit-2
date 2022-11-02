@@ -29,7 +29,9 @@ public class RotateController : MonoBehaviour
     }
     
     private void RotateCircle(float degree)
-    {        
+    {
+        SoundManager.Instance.Play("Mechanism");
+
         circleTransform.Rotate(new Vector3(0,0, degree));
     }
 

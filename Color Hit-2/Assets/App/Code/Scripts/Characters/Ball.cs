@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Ball : Character
-{   
+{
+    [SerializeField] private bool isBall;
 
     private void FixedUpdate()
     {
@@ -14,19 +15,36 @@ public class Ball : Character
     {
         IColorAccessible access = collision.GetComponent<IColorAccessible>();
 
-        if (access != null)
-        {
-            if(this.currentColorId== access.GetColorId())
-            {
-                print("Color equal " + this.currentColorId);
+        IAmountAccessable amountAccess = collision.GetComponent<IAmountAccessable>();
 
-                //add score
-            }else
+        if (access != null && !isBall)
+        {
+            if (this.currentColorId == access.GetColorId())
             {
-                Time.timeScale = 0;
+                HitSquare(amountAccess, false);
             }
+            else
+            {
+                EventManager.OnGameOver(true);
+            }
+
+            Destroy(gameObject);
+        }else if(amountAccess!=null)
+        {
+            HitSquare(amountAccess, true);
         }
 
-        Destroy(gameObject);
+        if(collision.CompareTag("Spawner"))
+        {
+            Destroy(gameObject);
+        }
+
+    }
+
+    private void HitSquare(IAmountAccessable amountAccess, bool isSpecial)
+    {
+        EventManager.OnScoreChanged(1);
+
+        amountAccess.TakeDamage(isSpecial);
     }
 }

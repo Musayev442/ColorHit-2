@@ -8,31 +8,62 @@ public class WaveSpawner : MonoBehaviour
 
     private int amount = 1;
 
-    private int counter = 0;
+    private int bossAmount = 5;
+    private int regularAmount = 1;
+
+
+    private int counter = 1;
+
+    private void OnEnable()
+    {
+        EventManager.StopSpawning += StopInvokeRepeating;
+    }
+
+    private void OnDisable()
+    {
+        EventManager.StopSpawning -= StopInvokeRepeating;
+    }
 
     private void Start()
     {
         InvokeRepeating("Spawn", 3f, 2f);
     }
 
+    private void StopInvokeRepeating()
+    {
+        Destroy(gameObject);
+    }
+
     private void Spawn()
     {
         GameObject square = Instantiate(squarePrefab, transform.position, Quaternion.identity);
 
-        Character character = square.GetComponent<Character>();//add interface
+        Square character = square.GetComponent<Square>();
 
         int rand = Random.Range(0, 4);
 
         character.SetColorToCharacter(rand);
-        character.GetComponent<IAmountAccessable>().SetAmount(amount);
 
-        if(counter > 10)
+        IAmountAccessable access = character.GetComponent<IAmountAccessable>();
+
+
+        if (counter == 10)
         {
-            counter = 0;
-            amount++;
-        }
+            amount = bossAmount += 5;
+            counter = 1;
 
+            regularAmount++;
+
+            character.ActiveLight(true);
+
+            access.SetAmount(amount);
+        }else
+        {
+            amount = regularAmount;
+            access.SetAmount(amount);
+        }
         counter++;
+
     }
 
 }

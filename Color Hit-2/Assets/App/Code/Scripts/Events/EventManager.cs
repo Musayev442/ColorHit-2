@@ -13,7 +13,23 @@ public static class EventManager
 
     public static void OnBallSpawned(int count) => BallSpawned?.Invoke(count);
 
-    public static event UnityAction<int> AmountChanged;
+    public static event UnityAction<bool> SpecialBallSpawned;
 
-    public static void OnAmountChanged(int amount) => AmountChanged?.Invoke(amount);
+    public static void OnSpecialBallSpawned(bool isFire) => SpecialBallSpawned?.Invoke(isFire);
+
+    public static event UnityAction<int> ScoreChanged;
+
+    public static void OnScoreChanged(int score) => ScoreChanged?.Invoke(score);
+
+    public static event UnityAction<bool> GameOver;
+
+    public static void OnGameOver(bool isOver) => GameOver?.Invoke(isOver);
+
+    public static event UnityAction AdMobLoaded;
+
+    public static void OnAdMobLoaded() => AdMobLoaded?.Invoke();
+
+    public static event UnityAction StopSpawning;
+
+    public static void OnStopSpawning() => StopSpawning?.Invoke();
 }
