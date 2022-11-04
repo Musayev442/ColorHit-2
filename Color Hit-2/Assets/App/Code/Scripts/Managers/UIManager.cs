@@ -126,7 +126,7 @@ public class UIManager : MonoBehaviour
 
         EventManager.OnStopSpawning();
 
-        //EventManager.OnAdMobLoaded();
+        EventManager.OnAdMobLoaded();
 
         Time.timeScale = 0;
     }
