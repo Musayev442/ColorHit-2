@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using GoogleMobileAds.Api;
+//using GoogleMobileAds.Api;
 
 public class InterstitialView : MonoBehaviour
 {
-    private InterstitialAd interstitial;
+    /*private InterstitialAd interstitial;
 
 
     private void OnEnable()
@@ -16,6 +16,11 @@ public class InterstitialView : MonoBehaviour
     private void OnDisable()
     {
         EventManager.AdMobLoaded -= HandleOnAdLoaded;
+    }
+
+    private void Start()
+    {
+        MobileAds.Initialize(initstatus => { });
     }
 
     private void RequestInterstitial()
@@ -38,8 +43,6 @@ public class InterstitialView : MonoBehaviour
 
     public void HandleOnAdLoaded()
     {
-        MobileAds.Initialize(initstatus => { });
-
         RequestInterstitial();
 
         if (this.interstitial.IsLoaded())
@@ -48,5 +51,5 @@ public class InterstitialView : MonoBehaviour
         }
 
         print("HandleAdLoaded event received");
-    }
+    }*/
 }
